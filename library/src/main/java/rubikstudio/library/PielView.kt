@@ -21,7 +21,8 @@ class PielView : View {
 
     private var mArcPaint: Paint? = null
     private var mBackgroundPaint: Paint? = null
-    private var mTextPaint: Paint? = null
+    private var mTitlePaint: Paint? = null
+    private var mSubtitlePaint: Paint? = null
 
     private val mStartAngle = 0f
     private var mCenter: Int = 0
@@ -33,7 +34,8 @@ class PielView : View {
     private var defaultBackgroundColor = -1
     private var drawableCenterImage: Drawable? = null
     private var strokeColor: Int? = Color.TRANSPARENT
-    private var textColor = -0x1
+    private var titleColor = -0x1
+    private var subtitleColor = -0x1
 
     private var mLuckyItemList: List<LuckyItem>? = null
 
@@ -62,13 +64,20 @@ class PielView : View {
 
     private fun init() {
 
-        mArcPaint = Paint()
-        mArcPaint!!.isAntiAlias = true
-        mArcPaint!!.isDither = true
+        mArcPaint = Paint().apply {
+            isAntiAlias = true
+            isDither = true
+        }
 
-        mTextPaint = Paint()
-        mTextPaint!!.color = textColor
-        mTextPaint!!.textSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 14f, resources.displayMetrics)
+        mTitlePaint = Paint().apply {
+            color = titleColor
+            textSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 14f, resources.displayMetrics)
+        }
+
+        mSubtitlePaint = Paint().apply {
+            color = subtitleColor
+            textSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 14f, resources.displayMetrics)
+        }
 
         mRange = RectF(mPadding.toFloat(), mPadding.toFloat(), (mPadding + mRadius).toFloat(), (mPadding + mRadius).toFloat())
     }
@@ -92,8 +101,13 @@ class PielView : View {
         this.strokeColor = strokeColor
     }
 
-    fun setPieTextColor(color: Int) {
-        textColor = color
+    fun setPieTitleColor(color: Int) {
+        titleColor = color
+        invalidate()
+    }
+
+    fun setPieSubtitleColor(color: Int) {
+        subtitleColor = color
         invalidate()
     }
 
@@ -132,7 +146,8 @@ class PielView : View {
                 canvas.drawArc(mRange, tmpAngle, sweepAngle, true, mArcPaint!!)
             }
 
-            drawText(canvas, tmpAngle, sweepAngle, mLuckyItemList!![i].text)
+            drawTitle(canvas, tmpAngle, sweepAngle, mLuckyItemList!![i].title)
+            drawSubtitle(canvas, tmpAngle, sweepAngle, "cazzo")
 
             BitmapFactory.decodeResource(resources, mLuckyItemList!![i].icon)?.let {
                 drawImage(canvas, tmpAngle, it)
@@ -201,16 +216,34 @@ class PielView : View {
      * @param sweepAngle
      * @param mStr
      */
-    private fun drawText(canvas: Canvas, tmpAngle: Float, sweepAngle: Float, mStr: String) {
+    private fun drawTitle(canvas: Canvas, tmpAngle: Float, sweepAngle: Float, mStr: String) {
         val path = Path()
         path.addArc(mRange, tmpAngle, sweepAngle)
 
-        val textWidth = mTextPaint!!.measureText(mStr)
+        val textWidth = mTitlePaint!!.measureText(mStr)
         val hOffset = (mRadius * Math.PI / mLuckyItemList!!.size.toDouble() / 2.0 - textWidth / 2).toInt()
 
         val vOffset = mRadius / 2 / 4
 
-        canvas.drawTextOnPath(mStr, path, hOffset.toFloat(), vOffset.toFloat(), mTextPaint!!)
+        canvas.drawTextOnPath(mStr, path, hOffset.toFloat(), vOffset.toFloat(), mTitlePaint!!)
+    }
+
+    /**
+     * @param canvas
+     * @param tmpAngle
+     * @param sweepAngle
+     * @param mStr
+     */
+    private fun drawSubtitle(canvas: Canvas, tmpAngle: Float, sweepAngle: Float, mStr: String) {
+        val path = Path()
+        path.addArc(mRange, tmpAngle, sweepAngle)
+
+        val textWidth = mSubtitlePaint!!.measureText(mStr)
+        val hOffset = (mRadius * Math.PI / mLuckyItemList!!.size.toDouble() / 2.0 - textWidth / 2).toInt()
+
+        val vOffset = mRadius / 2 / 3
+
+        canvas.drawTextOnPath(mStr, path, hOffset.toFloat(), vOffset.toFloat(), mSubtitlePaint!!)
     }
 
     /**

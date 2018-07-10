@@ -16,40 +16,62 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val item1 = LuckyItem()
-        item1.text = "SUN"
-        item1.color = Color.WHITE
+        item1.apply {
+            title = "SUN"
+            subtitle = "08"
+            color = Color.WHITE
+        }
         data.add(item1)
 
         val item2 = LuckyItem()
-        item2.text = "MON"
-        item2.color = Color.WHITE
+        item2.apply {
+            title = "MON"
+            subtitle = "09"
+            color = Color.WHITE
+        }
         data.add(item2)
 
         val item3 = LuckyItem()
-        item3.text = "TUE"
-        item3.color = Color.WHITE
+        item3.apply {
+            title = "TUE"
+            subtitle = "10"
+            color = Color.WHITE
+        }
         data.add(item3)
 
         val item4 = LuckyItem()
-        item4.text = "WED"
-        item4.color = Color.WHITE
+        item4.apply {
+            title = "WED"
+            subtitle = "11"
+            color = Color.WHITE
+        }
         data.add(item4)
 
         val item5 = LuckyItem()
-        item5.text = "THU"
-        item5.color = Color.WHITE
+        item5.apply {
+            title = "THU"
+            subtitle = "12"
+            color = Color.WHITE
+        }
         data.add(item5)
 
         val item6 = LuckyItem()
-        item6.text = "FRI"
-        item6.color = Color.WHITE
+        item6.apply {
+            title = "FRI"
+            subtitle = "13"
+            color = Color.WHITE
+        }
         data.add(item6)
 
         val item7 = LuckyItem()
-        item7.text = "SAT"
-        item7.color = Color.WHITE
+        item7.apply {
+            title = "SAT"
+            subtitle = "14"
+            color = Color.WHITE
+        }
         data.add(item7)
 
         luckyWheel.setData(data)
+        luckyWheel.startLuckyWheelWithTargetIndex(0)
     }
 }

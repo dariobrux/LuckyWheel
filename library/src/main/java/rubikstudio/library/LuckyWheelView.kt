@@ -17,12 +17,13 @@ import rubikstudio.library.model.LuckyItem
 class LuckyWheelView : RelativeLayout, PielView.PieRotateListener {
 
     private var mBackgroundColor: Int = 0
-    private var mTextColor: Int = 0
+    private var mTitleColor: Int = 0
+    private var mSubtitleColor: Int = 0
     private var mCenterImage: Drawable? = null
     private var mCursorImage: Drawable? = null
     private var mStrokeColor: Int? = Color.TRANSPARENT
 
-    private lateinit var pielView: PielView
+    private lateinit var pieView: PielView
     private var ivCursorView: ImageView? = null
 
     private var mLuckyRoundItemSelectedListener: LuckyRoundItemSelectedListener? = null
@@ -58,7 +59,8 @@ class LuckyWheelView : RelativeLayout, PielView.PieRotateListener {
         if (attrs != null) {
             val typedArray = ctx.obtainStyledAttributes(attrs, R.styleable.LuckyWheelView)
             mBackgroundColor = typedArray.getColor(R.styleable.LuckyWheelView_lkwBackgroundColor, -0x340000)
-            mTextColor = typedArray.getColor(R.styleable.LuckyWheelView_lkwTextColor, -0x1)
+            mTitleColor = typedArray.getColor(R.styleable.LuckyWheelView_lkwTitleColor, -0x1)
+            mSubtitleColor = typedArray.getColor(R.styleable.LuckyWheelView_lkwSubtitleColor, -0x1)
             mCursorImage = typedArray.getDrawable(R.styleable.LuckyWheelView_lkwCursor)
             mCenterImage = typedArray.getDrawable(R.styleable.LuckyWheelView_lkwCenterImage)
             mStrokeColor = typedArray.getColor(R.styleable.LuckyWheelView_lkwStrokeColor, Color.TRANSPARENT)
@@ -68,21 +70,22 @@ class LuckyWheelView : RelativeLayout, PielView.PieRotateListener {
         val inflater = LayoutInflater.from(context)
         val frameLayout = inflater.inflate(R.layout.lucky_wheel_layout, this, false) as FrameLayout
 
-        pielView = frameLayout.findViewById(R.id.pieView)
+        pieView = frameLayout.findViewById(R.id.pieView)
         ivCursorView = frameLayout.findViewById(R.id.cursorView)
 
-        pielView.setPieRotateListener(this)
-        pielView.setPieBackgroundColor(mBackgroundColor)
+        pieView.setPieRotateListener(this)
+        pieView.setPieBackgroundColor(mBackgroundColor)
 
         mCenterImage?.let {
-            pielView.setPieCenterImage(it)
+            pieView.setPieCenterImage(it)
         }
 
         mStrokeColor?.let {
-            pielView.setStrokeColor(it)
+            pieView.setStrokeColor(it)
         }
 
-        pielView.setPieTextColor(mTextColor)
+        pieView.setPieTitleColor(mTitleColor)
+        pieView.setPieSubtitleColor(mSubtitleColor)
 
         mCursorImage?.let {
             ivCursorView!!.setImageDrawable(it)
@@ -92,7 +95,7 @@ class LuckyWheelView : RelativeLayout, PielView.PieRotateListener {
     }
 
     fun setLuckyWheelBackgrouldColor(color: Int) {
-        pielView.setPieBackgroundColor(color)
+        pieView.setPieBackgroundColor(color)
     }
 
     fun setLuckyWheelCursorImage(drawable: Int) {
@@ -100,11 +103,11 @@ class LuckyWheelView : RelativeLayout, PielView.PieRotateListener {
     }
 
     fun setLuckyWheelCenterImage(drawable: Drawable) {
-        pielView!!.setPieCenterImage(drawable)
+        pieView.setPieCenterImage(drawable)
     }
 
-    fun setLuckyWheelTextColor(color: Int) {
-        pielView!!.setPieTextColor(color)
+    fun setLuckyWheelTitleColor(color: Int) {
+        pieView.setPieTitleColor(color)
     }
 
     /**
@@ -112,7 +115,7 @@ class LuckyWheelView : RelativeLayout, PielView.PieRotateListener {
      * @param data
      */
     fun setData(data: List<LuckyItem>) {
-        pielView!!.setData(data)
+        pieView.setData(data)
     }
 
     /**
@@ -120,10 +123,10 @@ class LuckyWheelView : RelativeLayout, PielView.PieRotateListener {
      * @param numberOfRound
      */
     fun setRound(numberOfRound: Int) {
-        pielView!!.setRound(numberOfRound)
+        pieView.setRound(numberOfRound)
     }
 
     fun startLuckyWheelWithTargetIndex(index: Int) {
-        pielView!!.rotateTo(index)
+        pieView.rotateTo(index)
     }
 }

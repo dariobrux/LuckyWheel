@@ -18,6 +18,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:lkwBackgroundColor="@color/white"
         app:lkwStrokeColor="@color/silver"
-        app:lkwTextColor="#00ffff" />
+        app:lkwTitleColor="#8e9ca2"
+        app:lkwSubtitleColor="#5588e7" />
 
 </android.support.constraint.ConstraintLayout>

@@ -5,7 +5,8 @@ package rubikstudio.library.model;
  */
 
 public class LuckyItem {
-    public String text;
+    public String title;
+    public String subtitle;
     public int icon;
     public int color;
 }
