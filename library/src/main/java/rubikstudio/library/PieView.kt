@@ -312,6 +312,10 @@ class PieView : View {
             point.x = event.x.toInt()
             point.y = event.y.toInt()
 
+            if (event.action == MotionEvent.ACTION_DOWN) {
+                return true
+            }
+
             if (region.contains(point.x, point.y) && event.action == MotionEvent.ACTION_UP) {
 //                if (onItemSelectListener != null) {
 //                    onItemSelectListener.onItemSelected(parent.parent as MenuContainer)
