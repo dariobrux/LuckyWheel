@@ -9,13 +9,15 @@ import android.util.TypedValue
 import android.view.MotionEvent
 import android.view.View
 import android.view.animation.DecelerateInterpolator
+import android.widget.Toast
 import rubikstudio.library.model.LuckyItem
 
 /**
  * Created by kiennguyen on 11/5/16.
  */
 
-class PielView : View {
+class PieView : View {
+
     private var mRange = RectF()
     private var mRadius: Int = 0
 
@@ -40,6 +42,8 @@ class PielView : View {
     private var mLuckyItemList: List<LuckyItem>? = null
 
     private var mPieRotateListener: PieRotateListener? = null
+
+    private var mPathList: ArrayList<Path> = ArrayList()
 
     /**
      * @return
@@ -134,11 +138,19 @@ class PielView : View {
         var tmpAngle = mStartAngle
         val sweepAngle = (360f / mLuckyItemList!!.size.toFloat())
 
+        mPathList.clear()
+
         for (i in mLuckyItemList!!.indices) {
 
             mArcPaint!!.style = Paint.Style.FILL
             mArcPaint!!.color = mLuckyItemList!![i].color
-            canvas.drawArc(mRange, tmpAngle, sweepAngle, true, mArcPaint!!)
+//            canvas.drawArc(mRange, tmpAngle, sweepAngle, true, mArcPaint!!)
+            val path = Path()
+            path.moveTo(width / 2f, height / 2f)
+            path.arcTo(mRange, tmpAngle, sweepAngle, false)
+            canvas.drawPath(path, mArcPaint)
+
+            mPathList.add(path)
 
             strokeColor?.let {
                 mArcPaint!!.style = Paint.Style.STROKE
@@ -147,7 +159,7 @@ class PielView : View {
             }
 
             drawTitle(canvas, tmpAngle, sweepAngle, mLuckyItemList!![i].title)
-            drawSubtitle(canvas, tmpAngle, sweepAngle, "cazzo")
+            drawSubtitle(canvas, tmpAngle, sweepAngle, mLuckyItemList!![i].subtitle)
 
             BitmapFactory.decodeResource(resources, mLuckyItemList!![i].icon)?.let {
                 drawImage(canvas, tmpAngle, it)
@@ -287,6 +299,29 @@ class PielView : View {
     }
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
+        for (i in 0 until mPathList.size) {
+
+            val path = mPathList[i]
+
+            val rectF = RectF()
+            path.computeBounds(rectF, true)
+            val region = Region()
+            region.setPath(path, Region(rectF.left.toInt(), rectF.top.toInt(), rectF.right.toInt(), rectF.bottom.toInt()))
+
+            val point = Point()
+            point.x = event.x.toInt()
+            point.y = event.y.toInt()
+
+            if (region.contains(point.x, point.y) && event.action == MotionEvent.ACTION_UP) {
+//                if (onItemSelectListener != null) {
+//                    onItemSelectListener.onItemSelected(parent.parent as MenuContainer)
+//                    return true
+//                }
+                Toast.makeText(context, mLuckyItemList!![i].title, Toast.LENGTH_SHORT).show()
+                return true
+            }
+        }
+
         return false
     }
 }

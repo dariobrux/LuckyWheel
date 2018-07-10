@@ -1,5 +1,6 @@
 package rubikstudio.library
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.Drawable
@@ -14,7 +15,7 @@ import rubikstudio.library.model.LuckyItem
  * Created by kiennguyen on 11/5/16.
  */
 
-class LuckyWheelView : RelativeLayout, PielView.PieRotateListener {
+class LuckyWheelView : RelativeLayout, PieView.PieRotateListener {
 
     private var mBackgroundColor: Int = 0
     private var mTitleColor: Int = 0
@@ -23,7 +24,7 @@ class LuckyWheelView : RelativeLayout, PielView.PieRotateListener {
     private var mCursorImage: Drawable? = null
     private var mStrokeColor: Int? = Color.TRANSPARENT
 
-    private lateinit var pieView: PielView
+    private lateinit var pieView: PieView
     private var ivCursorView: ImageView? = null
 
     private var mLuckyRoundItemSelectedListener: LuckyRoundItemSelectedListener? = null
@@ -55,6 +56,7 @@ class LuckyWheelView : RelativeLayout, PielView.PieRotateListener {
      * @param ctx
      * @param attrs
      */
+    @SuppressLint("ClickableViewAccessibility")
     private fun init(ctx: Context, attrs: AttributeSet?) {
         if (attrs != null) {
             val typedArray = ctx.obtainStyledAttributes(attrs, R.styleable.LuckyWheelView)
@@ -75,6 +77,10 @@ class LuckyWheelView : RelativeLayout, PielView.PieRotateListener {
 
         pieView.setPieRotateListener(this)
         pieView.setPieBackgroundColor(mBackgroundColor)
+//        pieView.setOnTouchListener { view, motionEvent ->
+//            Toast.makeText(context, pieView.angleOfIndexTarget.toString(), Toast.LENGTH_SHORT).show()
+//            return@setOnTouchListener true
+//        }
 
         mCenterImage?.let {
             pieView.setPieCenterImage(it)

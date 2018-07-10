@@ -3,7 +3,9 @@ package com.pillohealth.pillo.demo
 import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
+import rubikstudio.library.LuckyWheelView
 import rubikstudio.library.model.LuckyItem
 import java.util.*
 
@@ -72,6 +74,19 @@ class MainActivity : AppCompatActivity() {
         data.add(item7)
 
         luckyWheel.setData(data)
-        luckyWheel.startLuckyWheelWithTargetIndex(0)
+//
+//        Handler(Looper.getMainLooper()).postDelayed({
+            luckyWheel.startLuckyWheelWithTargetIndex(0)
+//
+//
+//        }, 1000)
+
+
+        luckyWheel.setLuckyRoundItemSelectedListener(object : LuckyWheelView.LuckyRoundItemSelectedListener {
+            override fun LuckyRoundItemSelected(index: Int) {
+                Toast.makeText(applicationContext, index.toString(), Toast.LENGTH_SHORT).show()
+            }
+        })
+
     }
 }
