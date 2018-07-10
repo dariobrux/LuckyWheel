@@ -135,4 +135,8 @@ class LuckyWheelView : RelativeLayout, PieView.PieRotateListener {
     fun startLuckyWheelWithTargetIndex(index: Int) {
         pieView.rotateTo(index)
     }
+
+    fun setOnItemSelectedListener(listener: OnItemSelectedListener) {
+        pieView.setOnItemSelectedListener(listener)
+    }
 }

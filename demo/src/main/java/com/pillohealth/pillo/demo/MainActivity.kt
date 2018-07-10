@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 import rubikstudio.library.LuckyWheelView
+import rubikstudio.library.OnItemSelectedListener
 import rubikstudio.library.model.LuckyItem
 import java.util.*
 
@@ -82,6 +83,12 @@ class MainActivity : AppCompatActivity() {
 //        }, 1000)
 
 
+        luckyWheel.setOnItemSelectedListener(object : OnItemSelectedListener {
+            override fun onItemSelected(luckyItem: LuckyItem) {
+                Toast.makeText(applicationContext, luckyItem.title, Toast.LENGTH_SHORT).show()
+            }
+        })
+        
         luckyWheel.setLuckyRoundItemSelectedListener(object : LuckyWheelView.LuckyRoundItemSelectedListener {
             override fun LuckyRoundItemSelected(index: Int) {
                 Toast.makeText(applicationContext, index.toString(), Toast.LENGTH_SHORT).show()

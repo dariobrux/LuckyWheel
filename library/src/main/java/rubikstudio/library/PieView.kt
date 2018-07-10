@@ -9,7 +9,6 @@ import android.util.TypedValue
 import android.view.MotionEvent
 import android.view.View
 import android.view.animation.DecelerateInterpolator
-import android.widget.Toast
 import rubikstudio.library.model.LuckyItem
 
 /**
@@ -44,6 +43,8 @@ class PieView : View {
     private var mPieRotateListener: PieRotateListener? = null
 
     private var mPathList: ArrayList<Path> = ArrayList()
+
+    private var mOnItemSelectedListener: OnItemSelectedListener? = null
 
     /**
      * @return
@@ -317,15 +318,15 @@ class PieView : View {
             }
 
             if (region.contains(point.x, point.y) && event.action == MotionEvent.ACTION_UP) {
-//                if (onItemSelectListener != null) {
-//                    onItemSelectListener.onItemSelected(parent.parent as MenuContainer)
-//                    return true
-//                }
-                Toast.makeText(context, mLuckyItemList!![i].title, Toast.LENGTH_SHORT).show()
+                mOnItemSelectedListener?.onItemSelected(mLuckyItemList!![i])
                 return true
             }
         }
 
         return false
+    }
+
+    fun setOnItemSelectedListener(listener: OnItemSelectedListener) {
+        mOnItemSelectedListener = listener
     }
 }
