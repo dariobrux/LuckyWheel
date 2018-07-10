@@ -1,6 +1,7 @@
 package rubikstudio.library
 
 import android.content.Context
+import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.view.LayoutInflater
@@ -19,8 +20,9 @@ class LuckyWheelView : RelativeLayout, PielView.PieRotateListener {
     private var mTextColor: Int = 0
     private var mCenterImage: Drawable? = null
     private var mCursorImage: Drawable? = null
+    private var mStrokeColor: Int? = Color.TRANSPARENT
 
-    private var pielView: PielView? = null
+    private lateinit var pielView: PielView
     private var ivCursorView: ImageView? = null
 
     private var mLuckyRoundItemSelectedListener: LuckyRoundItemSelectedListener? = null
@@ -59,6 +61,7 @@ class LuckyWheelView : RelativeLayout, PielView.PieRotateListener {
             mTextColor = typedArray.getColor(R.styleable.LuckyWheelView_lkwTextColor, -0x1)
             mCursorImage = typedArray.getDrawable(R.styleable.LuckyWheelView_lkwCursor)
             mCenterImage = typedArray.getDrawable(R.styleable.LuckyWheelView_lkwCenterImage)
+            mStrokeColor = typedArray.getColor(R.styleable.LuckyWheelView_lkwStrokeColor, Color.TRANSPARENT)
             typedArray.recycle()
         }
 
@@ -68,24 +71,28 @@ class LuckyWheelView : RelativeLayout, PielView.PieRotateListener {
         pielView = frameLayout.findViewById(R.id.pieView)
         ivCursorView = frameLayout.findViewById(R.id.cursorView)
 
-        pielView!!.setPieRotateListener(this)
-        pielView!!.setPieBackgroundColor(mBackgroundColor)
+        pielView.setPieRotateListener(this)
+        pielView.setPieBackgroundColor(mBackgroundColor)
 
         mCenterImage?.let {
-            pielView!!.setPieCenterImage(mCenterImage!!)
+            pielView.setPieCenterImage(it)
         }
 
-        pielView!!.setPieTextColor(mTextColor)
+        mStrokeColor?.let {
+            pielView.setStrokeColor(it)
+        }
+
+        pielView.setPieTextColor(mTextColor)
 
         mCursorImage?.let {
-            ivCursorView!!.setImageDrawable(mCursorImage)
+            ivCursorView!!.setImageDrawable(it)
         }
 
         addView(frameLayout)
     }
 
     fun setLuckyWheelBackgrouldColor(color: Int) {
-        pielView!!.setPieBackgroundColor(color)
+        pielView.setPieBackgroundColor(color)
     }
 
     fun setLuckyWheelCursorImage(drawable: Int) {

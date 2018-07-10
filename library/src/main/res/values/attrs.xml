@@ -9,6 +9,7 @@
         <attr name="lkwCursor" format="reference" />
         <attr name="lkwCenterImage" format="reference" />
         <attr name="lkwTextColor" format="color" />
+        <attr name="lkwStrokeColor" format="color" />
     </declare-styleable>
 
 </resources>

@@ -32,6 +32,7 @@ class PielView : View {
 
     private var defaultBackgroundColor = -1
     private var drawableCenterImage: Drawable? = null
+    private var strokeColor: Int? = Color.TRANSPARENT
     private var textColor = -0x1
 
     private var mLuckyItemList: List<LuckyItem>? = null
@@ -60,14 +61,14 @@ class PielView : View {
     }
 
     private fun init() {
+
         mArcPaint = Paint()
         mArcPaint!!.isAntiAlias = true
         mArcPaint!!.isDither = true
 
         mTextPaint = Paint()
         mTextPaint!!.color = textColor
-        mTextPaint!!.textSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 14f,
-                resources.displayMetrics)
+        mTextPaint!!.textSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 14f, resources.displayMetrics)
 
         mRange = RectF(mPadding.toFloat(), mPadding.toFloat(), (mPadding + mRadius).toFloat(), (mPadding + mRadius).toFloat())
     }
@@ -85,6 +86,10 @@ class PielView : View {
     fun setPieCenterImage(drawable: Drawable) {
         drawableCenterImage = drawable
         invalidate()
+    }
+
+    fun setStrokeColor(strokeColor: Int) {
+        this.strokeColor = strokeColor
     }
 
     fun setPieTextColor(color: Int) {
@@ -113,11 +118,19 @@ class PielView : View {
         init()
 
         var tmpAngle = mStartAngle
-        val sweepAngle = (360 / mLuckyItemList!!.size).toFloat()
+        val sweepAngle = (360f / mLuckyItemList!!.size.toFloat())
 
         for (i in mLuckyItemList!!.indices) {
+
+            mArcPaint!!.style = Paint.Style.FILL
             mArcPaint!!.color = mLuckyItemList!![i].color
             canvas.drawArc(mRange, tmpAngle, sweepAngle, true, mArcPaint!!)
+
+            strokeColor?.let {
+                mArcPaint!!.style = Paint.Style.STROKE
+                mArcPaint!!.color = it
+                canvas.drawArc(mRange, tmpAngle, sweepAngle, true, mArcPaint!!)
+            }
 
             drawText(canvas, tmpAngle, sweepAngle, mLuckyItemList!![i].text)
 
