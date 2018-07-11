@@ -15,7 +15,7 @@ import rubikstudio.library.model.LuckyItem
  * Created by kiennguyen on 11/5/16.
  */
 
-class LuckyWheelView : RelativeLayout, PieView.PieRotateListener {
+class LuckyWheelView : RelativeLayout {
 
     private var mBackgroundColor: Int = 0
     private var mTitleColor: Int = 0
@@ -27,20 +27,16 @@ class LuckyWheelView : RelativeLayout, PieView.PieRotateListener {
     private lateinit var pieView: PieView
     private var ivCursorView: ImageView? = null
 
-    private var mLuckyRoundItemSelectedListener: LuckyRoundItemSelectedListener? = null
+    private var onItemRoundListener: OnItemRotatedListener? = null
 
-    override fun rotateDone(index: Int) {
-        if (mLuckyRoundItemSelectedListener != null) {
-            mLuckyRoundItemSelectedListener!!.LuckyRoundItemSelected(index)
-        }
-    }
+//    override fun rotateDone(index: Int) {
+//        if (onItemRoundListener != null) {
+//            onItemRoundListener!!.onItemRotated(listindex)
+//        }
+//    }
 
-    interface LuckyRoundItemSelectedListener {
-        fun LuckyRoundItemSelected(index: Int)
-    }
-
-    fun setLuckyRoundItemSelectedListener(listener: LuckyRoundItemSelectedListener) {
-        this.mLuckyRoundItemSelectedListener = listener
+    fun setOnItemRotatedListener(listener: OnItemRotatedListener) {
+        pieView.setOnItemRotatedListener(listener)
     }
 
     constructor(context: Context) : super(context) {
@@ -75,7 +71,6 @@ class LuckyWheelView : RelativeLayout, PieView.PieRotateListener {
         pieView = frameLayout.findViewById(R.id.pieView)
         ivCursorView = frameLayout.findViewById(R.id.cursorView)
 
-        pieView.setPieRotateListener(this)
         pieView.setPieBackgroundColor(mBackgroundColor)
 //        pieView.setOnTouchListener { view, motionEvent ->
 //            Toast.makeText(context, pieView.angleOfIndexTarget.toString(), Toast.LENGTH_SHORT).show()
@@ -138,5 +133,17 @@ class LuckyWheelView : RelativeLayout, PieView.PieRotateListener {
 
     fun setOnItemSelectedListener(listener: OnItemSelectedListener) {
         pieView.setOnItemSelectedListener(listener)
+    }
+
+    fun rotateByStep(step: Int) {
+        pieView.rotateByStep(step)
+    }
+
+    fun startTo(position: Int) {
+        pieView.rotateTo(position, false)
+    }
+
+    fun rotateTo(position: Int) {
+        pieView.rotateTo(position, true)
     }
 }

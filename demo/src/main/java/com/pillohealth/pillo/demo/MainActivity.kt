@@ -5,14 +5,18 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
-import rubikstudio.library.LuckyWheelView
+import rubikstudio.library.OnItemRotatedListener
 import rubikstudio.library.OnItemSelectedListener
 import rubikstudio.library.model.LuckyItem
 import java.util.*
+import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity() {
 
-    private var data: MutableList<LuckyItem> = ArrayList()
+    private var data: ArrayList<LuckyItem> = ArrayList()
+    private lateinit var dataTemp: ArrayList<LuckyItem>
+
+    private var currentIndex = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -75,25 +79,30 @@ class MainActivity : AppCompatActivity() {
         data.add(item7)
 
         luckyWheel.setData(data)
-//
-//        Handler(Looper.getMainLooper()).postDelayed({
-            luckyWheel.startLuckyWheelWithTargetIndex(0)
-//
-//
-//        }, 1000)
+        luckyWheel.startTo(0)
 
+        dataTemp = ArrayList(data)
 
         luckyWheel.setOnItemSelectedListener(object : OnItemSelectedListener {
             override fun onItemSelected(luckyItem: LuckyItem) {
-                Toast.makeText(applicationContext, luckyItem.title, Toast.LENGTH_SHORT).show()
-            }
-        })
-        
-        luckyWheel.setLuckyRoundItemSelectedListener(object : LuckyWheelView.LuckyRoundItemSelectedListener {
-            override fun LuckyRoundItemSelected(index: Int) {
-                Toast.makeText(applicationContext, index.toString(), Toast.LENGTH_SHORT).show()
-            }
-        })
+                val index = dataTemp.indexOf(luckyItem)
+                step = if (index <= dataTemp.size / 2) {
+                    // clockwise
+                    index
+                } else {
+                    // counter clockwise
+                    index - dataTemp.size
+                }
 
+                luckyWheel.rotateByStep(step)
+            }
+        })
+        luckyWheel.setOnItemRotatedListener(object : OnItemRotatedListener {
+            override fun onItemRotated(luckyItem: LuckyItem) {
+                Toast.makeText(applicationContext, luckyItem.title.toString(), Toast.LENGTH_SHORT).show()
+                Collections.rotate(dataTemp, -step)
+            }
+        })
     }
+    var step = 0
 }

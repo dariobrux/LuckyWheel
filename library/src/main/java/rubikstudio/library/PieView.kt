@@ -40,7 +40,7 @@ class PieView : View {
 
     private var mLuckyItemList: List<LuckyItem>? = null
 
-    private var mPieRotateListener: PieRotateListener? = null
+    private var onItemRotatedListener: OnItemRotatedListener? = null
 
     private var mPathList: ArrayList<Path> = ArrayList()
 
@@ -55,16 +55,16 @@ class PieView : View {
             return (360 / mLuckyItemList!!.size * tempIndex).toFloat()
         }
 
-    interface PieRotateListener {
-        fun rotateDone(index: Int)
-    }
+//    interface PieRotateListener {
+//        fun rotateDone(index: Int)
+//    }
 
     constructor(context: Context) : super(context) {}
 
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {}
 
-    fun setPieRotateListener(listener: PieRotateListener) {
-        this.mPieRotateListener = listener
+    fun setOnItemRotatedListener(listener: OnItemRotatedListener) {
+        this.onItemRotatedListener = listener
     }
 
     private fun init() {
@@ -266,10 +266,43 @@ class PieView : View {
         mRoundOfNumber = numberOfRound
     }
 
+    fun rotateByStep(step: Int) {
+        if (isRunning) {
+            return
+        }
+
+        mTargetIndex += step
+
+        val targetAngle = (360f / mLuckyItemList!!.size.toFloat()) * step
+        animate()
+                .setInterpolator(DecelerateInterpolator())
+                .setDuration(Math.abs(step) * 1000 + 900L)
+                .setListener(object : Animator.AnimatorListener {
+                    override fun onAnimationStart(animation: Animator) {
+                        isRunning = true
+                    }
+
+                    override fun onAnimationEnd(animation: Animator) {
+                        isRunning = false
+
+                        var index = mTargetIndex % mLuckyItemList!!.size
+                        if (index < 0)
+                            index = mLuckyItemList!!.size - Math.abs(index)
+                        onItemRotatedListener?.onItemRotated(mLuckyItemList!![index])
+                    }
+
+                    override fun onAnimationCancel(animation: Animator) {}
+
+                    override fun onAnimationRepeat(animation: Animator) {}
+                })
+                .rotationBy(-targetAngle)
+                .start()
+    }
+
     /**
      * @param index
      */
-    fun rotateTo(index: Int) {
+    fun rotateTo(index: Int, animated: Boolean = true) {
         if (isRunning) {
             return
         }
@@ -278,7 +311,7 @@ class PieView : View {
         val targetAngle = 360 * mRoundOfNumber + 270 - angleOfIndexTarget + 360 / mLuckyItemList!!.size / 2
         animate()
                 .setInterpolator(DecelerateInterpolator())
-                .setDuration(mRoundOfNumber * 1000 + 900L)
+                .setDuration(if (animated) mRoundOfNumber * 1000 + 900L else 0)
                 .setListener(object : Animator.AnimatorListener {
                     override fun onAnimationStart(animation: Animator) {
                         isRunning = true
@@ -286,9 +319,7 @@ class PieView : View {
 
                     override fun onAnimationEnd(animation: Animator) {
                         isRunning = false
-                        if (mPieRotateListener != null) {
-                            mPieRotateListener!!.rotateDone(mTargetIndex)
-                        }
+                        onItemRotatedListener?.onItemRotated(mLuckyItemList!![index])
                     }
 
                     override fun onAnimationCancel(animation: Animator) {}
@@ -300,6 +331,9 @@ class PieView : View {
     }
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
+        if (isRunning) {
+            return false
+        }
         for (i in 0 until mPathList.size) {
 
             val path = mPathList[i]
