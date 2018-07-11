@@ -9,14 +9,10 @@ import rubikstudio.library.OnItemRotatedListener
 import rubikstudio.library.OnItemSelectedListener
 import rubikstudio.library.model.LuckyItem
 import java.util.*
-import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity() {
 
     private var data: ArrayList<LuckyItem> = ArrayList()
-    private lateinit var dataTemp: ArrayList<LuckyItem>
-
-    private var currentIndex = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -79,30 +75,16 @@ class MainActivity : AppCompatActivity() {
         data.add(item7)
 
         luckyWheel.setData(data)
-        luckyWheel.startTo(0)
-
-        dataTemp = ArrayList(data)
 
         luckyWheel.setOnItemSelectedListener(object : OnItemSelectedListener {
             override fun onItemSelected(luckyItem: LuckyItem) {
-                val index = dataTemp.indexOf(luckyItem)
-                step = if (index <= dataTemp.size / 2) {
-                    // clockwise
-                    index
-                } else {
-                    // counter clockwise
-                    index - dataTemp.size
-                }
-
-                luckyWheel.rotateByStep(step)
+                luckyWheel.centerItem(luckyItem)
             }
         })
         luckyWheel.setOnItemRotatedListener(object : OnItemRotatedListener {
             override fun onItemRotated(luckyItem: LuckyItem) {
                 Toast.makeText(applicationContext, luckyItem.title.toString(), Toast.LENGTH_SHORT).show()
-                Collections.rotate(dataTemp, -step)
             }
         })
     }
-    var step = 0
 }

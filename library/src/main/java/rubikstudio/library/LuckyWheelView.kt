@@ -10,6 +10,7 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import rubikstudio.library.model.LuckyItem
+import java.util.*
 
 /**
  * Created by kiennguyen on 11/5/16.
@@ -36,13 +37,8 @@ class LuckyWheelView : RelativeLayout {
     private lateinit var pieView: PieView
     private var ivCursorView: ImageView? = null
 
-//    private var onItemRoundListener: OnItemRotatedListener? = null
-//
-//    override fun rotateDone(index: Int) {
-//        if (onItemRoundListener != null) {
-//            onItemRoundListener!!.onItemRotated(listindex)
-//        }
-//    }
+    private var step = 0
+    private lateinit var itemListTemp: ArrayList<LuckyItem>
 
     fun setOnItemRotatedListener(listener: OnItemRotatedListener) {
         pieView.setOnItemRotatedListener(listener)
@@ -143,33 +139,48 @@ class LuckyWheelView : RelativeLayout {
      */
     fun setData(data: List<LuckyItem>) {
         pieView.setData(data)
+        itemListTemp = ArrayList(data)
+        startTo(0)
     }
 
-    /**
-     *
-     * @param numberOfRound
-     */
-    fun setRound(numberOfRound: Int) {
-        pieView.setRound(numberOfRound)
-    }
-
-    fun startLuckyWheelWithTargetIndex(index: Int) {
-        pieView.rotateTo(index)
-    }
+//    /**
+//     *
+//     * @param numberOfRound
+//     */
+//    fun setRound(numberOfRound: Int) {
+//        pieView.setRound(numberOfRound)
+//    }
+//
+//    fun startLuckyWheelWithTargetIndex(index: Int) {
+//        pieView.rotateTo(index)
+//    }
 
     fun setOnItemSelectedListener(listener: OnItemSelectedListener) {
         pieView.setOnItemSelectedListener(listener)
     }
 
-    fun rotateByStep(step: Int) {
+    private fun rotateByStep(step: Int) {
         pieView.rotateByStep(step)
     }
 
-    fun startTo(position: Int) {
+    private fun startTo(position: Int) {
         pieView.rotateTo(position, false)
     }
 
-    fun rotateTo(position: Int) {
-        pieView.rotateTo(position, true)
+//    fun rotateTo(position: Int) {
+//        pieView.rotateTo(position, true)
+//    }
+
+    fun centerItem(item : LuckyItem) {
+        val index = itemListTemp.indexOf(item)
+        step = if (index <= itemListTemp.size / 2) {
+            // clockwise
+            index
+        } else {
+            // counter clockwise
+            index - itemListTemp.size
+        }
+        rotateByStep(step)
+        Collections.rotate(itemListTemp, -step)
     }
 }
