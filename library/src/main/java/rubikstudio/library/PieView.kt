@@ -4,6 +4,7 @@ import android.animation.Animator
 import android.content.Context
 import android.graphics.*
 import android.graphics.drawable.Drawable
+import android.os.Build
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.MotionEvent
@@ -37,6 +38,9 @@ class PieView : View {
     private var strokeColor: Int? = Color.TRANSPARENT
     private var titleColor = -0x1
     private var subtitleColor = -0x1
+
+    private var titleSize = 14f
+    private var subtitleSize = 14f
 
     private var mLuckyItemList: List<LuckyItem>? = null
 
@@ -76,12 +80,20 @@ class PieView : View {
 
         mTitlePaint = Paint().apply {
             color = titleColor
-            textSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 14f, resources.displayMetrics)
+            typeface = Typeface.create("sans-serif",Typeface.NORMAL)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                letterSpacing = 0.25f
+            }
+            textSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, titleSize, resources.displayMetrics)
         }
 
         mSubtitlePaint = Paint().apply {
             color = subtitleColor
-            textSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 14f, resources.displayMetrics)
+            typeface = Typeface.create("sans-serif",Typeface.NORMAL)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                letterSpacing = 0.25f
+            }
+            textSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, subtitleSize, resources.displayMetrics)
         }
 
         mRange = RectF(mPadding.toFloat(), mPadding.toFloat(), (mPadding + mRadius).toFloat(), (mPadding + mRadius).toFloat())
@@ -113,6 +125,16 @@ class PieView : View {
 
     fun setPieSubtitleColor(color: Int) {
         subtitleColor = color
+        invalidate()
+    }
+
+    fun setPieTitleSize(size: Float) {
+        titleSize = size
+        invalidate()
+    }
+
+    fun setPieSubtitleSize(size: Float) {
+        subtitleSize = size
         invalidate()
     }
 
@@ -254,7 +276,7 @@ class PieView : View {
         val textWidth = mSubtitlePaint!!.measureText(mStr)
         val hOffset = (mRadius * Math.PI / mLuckyItemList!!.size.toDouble() / 2.0 - textWidth / 2).toInt()
 
-        val vOffset = mRadius / 2 / 3
+        val vOffset = (mRadius / 2 / 3) + 20
 
         canvas.drawTextOnPath(mStr, path, hOffset.toFloat(), vOffset.toFloat(), mSubtitlePaint!!)
     }

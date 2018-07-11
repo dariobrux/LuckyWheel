@@ -11,15 +11,17 @@
         android:id="@+id/luckyWheel"
         android:layout_width="300dp"
         android:layout_height="300dp"
-        android:rotation="180"
         android:layout_centerInParent="true"
+        android:rotation="180"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:lkwBackgroundColor="@color/white"
         app:lkwStrokeColor="@color/silver"
+        app:lkwSubtitleColor="#5588e7"
+        app:lkwSubtitleSize="14"
         app:lkwTitleColor="#8e9ca2"
-        app:lkwSubtitleColor="#5588e7" />
+        app:lkwTitleSize="14" />
 
 </android.support.constraint.ConstraintLayout>

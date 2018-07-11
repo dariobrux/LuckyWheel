@@ -9,6 +9,8 @@
         <attr name="lkwCursor" format="reference" />
         <attr name="lkwCenterImage" format="reference" />
         <attr name="lkwTitleColor" format="color" />
+        <attr name="lkwTitleSize" format="float" />
+        <attr name="lkwSubtitleSize" format="float" />
         <attr name="lkwSubtitleColor" format="color" />
         <attr name="lkwStrokeColor" format="color" />
     </declare-styleable>

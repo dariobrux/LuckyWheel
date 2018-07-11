@@ -19,6 +19,8 @@ class LuckyWheelView : RelativeLayout {
 
     private var mBackgroundColor: Int = 0
     private var mTitleColor: Int = 0
+    private var mTitleSize: Float = 14f
+    private var mSubtitleSize: Float = 14f
     private var mSubtitleColor: Int = 0
     private var mCenterImage: Drawable? = null
     private var mCursorImage: Drawable? = null
@@ -58,6 +60,8 @@ class LuckyWheelView : RelativeLayout {
             val typedArray = ctx.obtainStyledAttributes(attrs, R.styleable.LuckyWheelView)
             mBackgroundColor = typedArray.getColor(R.styleable.LuckyWheelView_lkwBackgroundColor, -0x340000)
             mTitleColor = typedArray.getColor(R.styleable.LuckyWheelView_lkwTitleColor, -0x1)
+            mTitleSize = typedArray.getFloat(R.styleable.LuckyWheelView_lkwTitleSize, mTitleSize)
+            mSubtitleSize = typedArray.getFloat(R.styleable.LuckyWheelView_lkwSubtitleSize, mSubtitleSize)
             mSubtitleColor = typedArray.getColor(R.styleable.LuckyWheelView_lkwSubtitleColor, -0x1)
             mCursorImage = typedArray.getDrawable(R.styleable.LuckyWheelView_lkwCursor)
             mCenterImage = typedArray.getDrawable(R.styleable.LuckyWheelView_lkwCenterImage)
@@ -87,6 +91,9 @@ class LuckyWheelView : RelativeLayout {
 
         pieView.setPieTitleColor(mTitleColor)
         pieView.setPieSubtitleColor(mSubtitleColor)
+
+        pieView.setPieTitleSize(mTitleSize)
+        pieView.setPieSubtitleSize(mSubtitleSize)
 
         mCursorImage?.let {
             ivCursorView!!.setImageDrawable(it)
