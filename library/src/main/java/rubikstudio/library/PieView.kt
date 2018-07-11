@@ -88,7 +88,7 @@ class PieView : View {
 
         mTitlePaint = Paint().apply {
             color = titleColor
-            typeface = Typeface.create("sans-serif",Typeface.NORMAL)
+            typeface = Typeface.create("sans-serif", Typeface.NORMAL)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 letterSpacing = mLetterSpacing
             }
@@ -97,7 +97,7 @@ class PieView : View {
 
         mSubtitlePaint = Paint().apply {
             color = subtitleColor
-            typeface = Typeface.create("sans-serif",Typeface.NORMAL)
+            typeface = Typeface.create("sans-serif", Typeface.NORMAL)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 letterSpacing = mLetterSpacing
             }

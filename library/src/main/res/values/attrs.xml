@@ -17,6 +17,10 @@
         <attr name="lkw_firstSubtitleColor" format="color" />
         <attr name="lkw_letterSpacing" format="float" />
         <attr name="lkw_animationDuration" format="integer" />
+        <attr name="lkw_directionFirstItem" format="enum">
+            <enum name="top" value="0" />
+            <enum name="bottom" value="1" />
+        </attr>
     </declare-styleable>
 
 </resources>

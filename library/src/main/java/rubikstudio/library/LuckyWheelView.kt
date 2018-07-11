@@ -34,6 +34,8 @@ class LuckyWheelView : RelativeLayout {
 
     private var mAnimationDuration: Long = 1000
 
+    private var mDirectionFirstItem: Int = DirectionFirstItem.BOTTOM.value
+
     private lateinit var pieView: PieView
     private var ivCursorView: ImageView? = null
 
@@ -69,6 +71,7 @@ class LuckyWheelView : RelativeLayout {
             mFirstSubtitleColor = typedArray.getColor(R.styleable.LuckyWheelView_lkw_firstSubtitleColor, mSubtitleColor)
             mLetterSpacing = typedArray.getFloat(R.styleable.LuckyWheelView_lkw_letterSpacing, 1f)
             mAnimationDuration = typedArray.getInt(R.styleable.LuckyWheelView_lkw_animationDuration, 1000).toLong()
+            mDirectionFirstItem = typedArray.getInt(R.styleable.LuckyWheelView_lkw_directionFirstItem, 0)
             typedArray.recycle()
         }
 
@@ -97,6 +100,11 @@ class LuckyWheelView : RelativeLayout {
         pieView.setLetterSpacing(mLetterSpacing)
 
         pieView.setAnimationDuration(mAnimationDuration)
+
+        rotation = when (DirectionFirstItem.values()[mDirectionFirstItem]) {
+            DirectionFirstItem.TOP -> 0f
+            DirectionFirstItem.BOTTOM -> 180f
+        }
 
         mFirstTitleColor?.let {
             pieView.setFirstTitleColor(it)
