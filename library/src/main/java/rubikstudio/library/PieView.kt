@@ -36,6 +36,10 @@ class PieView : View {
     private var defaultBackgroundColor = -1
     private var drawableCenterImage: Drawable? = null
     private var strokeColor: Int? = Color.TRANSPARENT
+
+    private var firstTitleColor: Int? = null
+    private var firstSubtitleColor: Int? = null
+
     private var titleColor = -0x1
     private var subtitleColor = -0x1
 
@@ -138,6 +142,16 @@ class PieView : View {
         invalidate()
     }
 
+    fun setFirstTitleColor(color: Int) {
+        firstTitleColor = color
+        invalidate()
+    }
+
+    fun setFirstSubtitleColor(color: Int) {
+        firstSubtitleColor = color
+        invalidate()
+    }
+
     private fun drawPieBackgroundWithBitmap(canvas: Canvas, bitmap: Bitmap) {
         canvas.drawBitmap(bitmap, null, Rect(mPadding / 2, mPadding / 2,
                 measuredWidth - mPadding / 2, measuredHeight - mPadding / 2), null)
@@ -179,6 +193,19 @@ class PieView : View {
                 mArcPaint!!.style = Paint.Style.STROKE
                 mArcPaint!!.color = it
                 canvas.drawArc(mRange, tmpAngle, sweepAngle, true, mArcPaint!!)
+            }
+
+            mTitlePaint!!.color = titleColor
+            mSubtitlePaint!!.color = subtitleColor
+
+            if (i == 0) {
+                firstTitleColor?.let {
+                    mTitlePaint!!.color = it
+                }
+
+                firstSubtitleColor?.let {
+                    mSubtitlePaint!!.color = it
+                }
             }
 
             drawTitle(canvas, tmpAngle, sweepAngle, mLuckyItemList!![i].title)

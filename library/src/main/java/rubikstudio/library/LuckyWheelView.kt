@@ -26,11 +26,14 @@ class LuckyWheelView : RelativeLayout {
     private var mCursorImage: Drawable? = null
     private var mStrokeColor: Int? = Color.TRANSPARENT
 
+    private var mFirstTitleColor: Int? = null
+    private var mFirstSubtitleColor: Int? = null
+
     private lateinit var pieView: PieView
     private var ivCursorView: ImageView? = null
 
-    private var onItemRoundListener: OnItemRotatedListener? = null
-
+//    private var onItemRoundListener: OnItemRotatedListener? = null
+//
 //    override fun rotateDone(index: Int) {
 //        if (onItemRoundListener != null) {
 //            onItemRoundListener!!.onItemRotated(listindex)
@@ -66,6 +69,8 @@ class LuckyWheelView : RelativeLayout {
             mCursorImage = typedArray.getDrawable(R.styleable.LuckyWheelView_lkwCursor)
             mCenterImage = typedArray.getDrawable(R.styleable.LuckyWheelView_lkwCenterImage)
             mStrokeColor = typedArray.getColor(R.styleable.LuckyWheelView_lkwStrokeColor, Color.TRANSPARENT)
+            mFirstTitleColor = typedArray.getColor(R.styleable.LuckyWheelView_lkwFirstTitleColor, mTitleColor)
+            mFirstSubtitleColor = typedArray.getColor(R.styleable.LuckyWheelView_lkwFirstSubtitleColor, mSubtitleColor)
             typedArray.recycle()
         }
 
@@ -94,6 +99,14 @@ class LuckyWheelView : RelativeLayout {
 
         pieView.setPieTitleSize(mTitleSize)
         pieView.setPieSubtitleSize(mSubtitleSize)
+
+        mFirstTitleColor?.let {
+            pieView.setFirstTitleColor(it)
+        }
+
+        mFirstSubtitleColor?.let {
+            pieView.setFirstSubtitleColor(it)
+        }
 
         mCursorImage?.let {
             ivCursorView!!.setImageDrawable(it)

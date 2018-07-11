@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ff0000"
+    android:background="#000000"
     tools:context=".MainActivity">
 
     <rubikstudio.library.LuckyWheelView
@@ -20,6 +20,8 @@
         app:lkwBackgroundColor="@color/white"
         app:lkwStrokeColor="@color/silver"
         app:lkwSubtitleColor="#5588e7"
+        app:lkwFirstTitleColor="#5588e7"
+        app:lkwFirstSubtitleColor="#5588e7"
         app:lkwSubtitleSize="14"
         app:lkwTitleColor="#8e9ca2"
         app:lkwTitleSize="14" />
