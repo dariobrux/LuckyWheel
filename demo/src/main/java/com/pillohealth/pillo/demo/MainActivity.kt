@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
-import rubikstudio.library.OnItemRotatedListener
+import rubikstudio.library.OnItemRotationListener
 import rubikstudio.library.OnItemSelectedListener
 import rubikstudio.library.model.LuckyItem
 import java.util.*
@@ -81,7 +81,7 @@ class MainActivity : AppCompatActivity() {
                 luckyWheel.centerItem(luckyItem)
             }
         })
-        luckyWheel.setOnItemRotatedListener(object : OnItemRotatedListener {
+        luckyWheel.setOnItemRotationListener(object : OnItemRotationListener {
             override fun onItemRotated(luckyItem: LuckyItem) {
                 Toast.makeText(applicationContext, luckyItem.title.toString(), Toast.LENGTH_SHORT).show()
             }

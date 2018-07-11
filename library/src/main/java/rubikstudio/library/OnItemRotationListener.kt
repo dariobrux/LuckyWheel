@@ -2,6 +2,6 @@ package rubikstudio.library
 
 import rubikstudio.library.model.LuckyItem
 
-interface OnItemRotatedListener {
+interface OnItemRotationListener {
     fun onItemRotated(luckyItem: LuckyItem)
 }

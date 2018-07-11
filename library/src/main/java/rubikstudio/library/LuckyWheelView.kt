@@ -40,10 +40,6 @@ class LuckyWheelView : RelativeLayout {
     private var step = 0
     private lateinit var itemListTemp: ArrayList<LuckyItem>
 
-    fun setOnItemRotatedListener(listener: OnItemRotatedListener) {
-        pieView.setOnItemRotatedListener(listener)
-    }
-
     constructor(context: Context) : super(context) {
         init(context, null)
     }
@@ -117,21 +113,21 @@ class LuckyWheelView : RelativeLayout {
         addView(frameLayout)
     }
 
-    fun setLuckyWheelBackgrouldColor(color: Int) {
-        pieView.setPieBackgroundColor(color)
-    }
-
-    fun setLuckyWheelCursorImage(drawable: Int) {
-        ivCursorView!!.setBackgroundResource(drawable)
-    }
-
-    fun setLuckyWheelCenterImage(drawable: Drawable) {
-        pieView.setPieCenterImage(drawable)
-    }
-
-    fun setLuckyWheelTitleColor(color: Int) {
-        pieView.setPieTitleColor(color)
-    }
+//    fun setLuckyWheelBackgrouldColor(color: Int) {
+//        pieView.setPieBackgroundColor(color)
+//    }
+//
+//    fun setLuckyWheelCursorImage(drawable: Int) {
+//        ivCursorView!!.setBackgroundResource(drawable)
+//    }
+//
+//    fun setLuckyWheelCenterImage(drawable: Drawable) {
+//        pieView.setPieCenterImage(drawable)
+//    }
+//
+//    fun setLuckyWheelTitleColor(color: Int) {
+//        pieView.setPieTitleColor(color)
+//    }
 
     /**
      *
@@ -157,6 +153,10 @@ class LuckyWheelView : RelativeLayout {
 
     fun setOnItemSelectedListener(listener: OnItemSelectedListener) {
         pieView.setOnItemSelectedListener(listener)
+    }
+
+    fun setOnItemRotationListener(listener: OnItemRotationListener) {
+        pieView.setOnItemRotationListener(listener)
     }
 
     private fun rotateByStep(step: Int) {

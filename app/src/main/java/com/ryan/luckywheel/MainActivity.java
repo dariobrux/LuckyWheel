@@ -119,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        luckyWheelView.setOnItemRotatedListener(new LuckyWheelView.LuckyRoundItemSelectedListener() {
+        luckyWheelView.setOnItemRotationListener(new LuckyWheelView.LuckyRoundItemSelectedListener() {
             @Override
             public void LuckyRoundItemSelected(int index) {
                 Toast.makeText(getApplicationContext(), String.valueOf(index), Toast.LENGTH_SHORT).show();

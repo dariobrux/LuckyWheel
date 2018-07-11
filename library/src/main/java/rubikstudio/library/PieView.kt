@@ -52,7 +52,7 @@ class PieView : View {
 
     private var mLuckyItemList: List<LuckyItem>? = null
 
-    private var onItemRotatedListener: OnItemRotatedListener? = null
+    private var onItemRotationListener: OnItemRotationListener? = null
 
     private var mPathList: ArrayList<Path> = ArrayList()
 
@@ -75,8 +75,8 @@ class PieView : View {
 
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {}
 
-    fun setOnItemRotatedListener(listener: OnItemRotatedListener) {
-        this.onItemRotatedListener = listener
+    fun setOnItemRotationListener(listener: OnItemRotationListener) {
+        this.onItemRotationListener = listener
     }
 
     private fun init() {
@@ -351,7 +351,7 @@ class PieView : View {
                         var index = mTargetIndex % mLuckyItemList!!.size
                         if (index < 0)
                             index = mLuckyItemList!!.size - Math.abs(index)
-                        onItemRotatedListener?.onItemRotated(mLuckyItemList!![index])
+                        onItemRotationListener?.onItemRotated(mLuckyItemList!![index])
                     }
 
                     override fun onAnimationCancel(animation: Animator) {}
@@ -383,7 +383,7 @@ class PieView : View {
 
                     override fun onAnimationEnd(animation: Animator) {
                         isRunning = false
-                        onItemRotatedListener?.onItemRotated(mLuckyItemList!![index])
+                        onItemRotationListener?.onItemRotated(mLuckyItemList!![index])
                     }
 
                     override fun onAnimationCancel(animation: Animator) {}
