@@ -29,6 +29,10 @@ class LuckyWheelView : RelativeLayout {
     private var mFirstTitleColor: Int? = null
     private var mFirstSubtitleColor: Int? = null
 
+    private var mLetterSpacing: Float = 1f
+
+    private var mAnimationDuration: Long = 1000
+
     private lateinit var pieView: PieView
     private var ivCursorView: ImageView? = null
 
@@ -61,16 +65,18 @@ class LuckyWheelView : RelativeLayout {
     private fun init(ctx: Context, attrs: AttributeSet?) {
         if (attrs != null) {
             val typedArray = ctx.obtainStyledAttributes(attrs, R.styleable.LuckyWheelView)
-            mBackgroundColor = typedArray.getColor(R.styleable.LuckyWheelView_lkwBackgroundColor, -0x340000)
-            mTitleColor = typedArray.getColor(R.styleable.LuckyWheelView_lkwTitleColor, -0x1)
-            mTitleSize = typedArray.getFloat(R.styleable.LuckyWheelView_lkwTitleSize, mTitleSize)
-            mSubtitleSize = typedArray.getFloat(R.styleable.LuckyWheelView_lkwSubtitleSize, mSubtitleSize)
-            mSubtitleColor = typedArray.getColor(R.styleable.LuckyWheelView_lkwSubtitleColor, -0x1)
-            mCursorImage = typedArray.getDrawable(R.styleable.LuckyWheelView_lkwCursor)
-            mCenterImage = typedArray.getDrawable(R.styleable.LuckyWheelView_lkwCenterImage)
-            mStrokeColor = typedArray.getColor(R.styleable.LuckyWheelView_lkwStrokeColor, Color.TRANSPARENT)
-            mFirstTitleColor = typedArray.getColor(R.styleable.LuckyWheelView_lkwFirstTitleColor, mTitleColor)
-            mFirstSubtitleColor = typedArray.getColor(R.styleable.LuckyWheelView_lkwFirstSubtitleColor, mSubtitleColor)
+            mBackgroundColor = typedArray.getColor(R.styleable.LuckyWheelView_lkw_backgroundColor, -0x340000)
+            mTitleColor = typedArray.getColor(R.styleable.LuckyWheelView_lkw_titleColor, -0x1)
+            mTitleSize = typedArray.getFloat(R.styleable.LuckyWheelView_lkw_titleSize, mTitleSize)
+            mSubtitleSize = typedArray.getFloat(R.styleable.LuckyWheelView_lkw_subtitleSize, mSubtitleSize)
+            mSubtitleColor = typedArray.getColor(R.styleable.LuckyWheelView_lkw_subtitleColor, -0x1)
+            mCursorImage = typedArray.getDrawable(R.styleable.LuckyWheelView_lkw_cursor)
+            mCenterImage = typedArray.getDrawable(R.styleable.LuckyWheelView_lkw_centerImage)
+            mStrokeColor = typedArray.getColor(R.styleable.LuckyWheelView_lkw_strokeColor, Color.TRANSPARENT)
+            mFirstTitleColor = typedArray.getColor(R.styleable.LuckyWheelView_lkw_firstTitleColor, mTitleColor)
+            mFirstSubtitleColor = typedArray.getColor(R.styleable.LuckyWheelView_lkw_firstSubtitleColor, mSubtitleColor)
+            mLetterSpacing = typedArray.getFloat(R.styleable.LuckyWheelView_lkw_letterSpacing, 1f)
+            mAnimationDuration = typedArray.getInt(R.styleable.LuckyWheelView_lkw_animationDuration, 1000).toLong()
             typedArray.recycle()
         }
 
@@ -81,10 +87,6 @@ class LuckyWheelView : RelativeLayout {
         ivCursorView = frameLayout.findViewById(R.id.cursorView)
 
         pieView.setPieBackgroundColor(mBackgroundColor)
-//        pieView.setOnTouchListener { view, motionEvent ->
-//            Toast.makeText(context, pieView.angleOfIndexTarget.toString(), Toast.LENGTH_SHORT).show()
-//            return@setOnTouchListener true
-//        }
 
         mCenterImage?.let {
             pieView.setPieCenterImage(it)
@@ -99,6 +101,10 @@ class LuckyWheelView : RelativeLayout {
 
         pieView.setPieTitleSize(mTitleSize)
         pieView.setPieSubtitleSize(mSubtitleSize)
+
+        pieView.setLetterSpacing(mLetterSpacing)
+
+        pieView.setAnimationDuration(mAnimationDuration)
 
         mFirstTitleColor?.let {
             pieView.setFirstTitleColor(it)

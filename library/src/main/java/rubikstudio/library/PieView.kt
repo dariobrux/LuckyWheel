@@ -40,6 +40,10 @@ class PieView : View {
     private var firstTitleColor: Int? = null
     private var firstSubtitleColor: Int? = null
 
+    private var mLetterSpacing: Float = 1f
+
+    private var mAnimationDuration: Long = 1000
+
     private var titleColor = -0x1
     private var subtitleColor = -0x1
 
@@ -86,7 +90,7 @@ class PieView : View {
             color = titleColor
             typeface = Typeface.create("sans-serif",Typeface.NORMAL)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                letterSpacing = 0.25f
+                letterSpacing = mLetterSpacing
             }
             textSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, titleSize, resources.displayMetrics)
         }
@@ -95,7 +99,7 @@ class PieView : View {
             color = subtitleColor
             typeface = Typeface.create("sans-serif",Typeface.NORMAL)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                letterSpacing = 0.25f
+                letterSpacing = mLetterSpacing
             }
             textSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, subtitleSize, resources.displayMetrics)
         }
@@ -150,6 +154,15 @@ class PieView : View {
     fun setFirstSubtitleColor(color: Int) {
         firstSubtitleColor = color
         invalidate()
+    }
+
+    fun setLetterSpacing(spacing: Float) {
+        mLetterSpacing = spacing
+        invalidate()
+    }
+
+    fun setAnimationDuration(duration: Long) {
+        mAnimationDuration = duration
     }
 
     private fun drawPieBackgroundWithBitmap(canvas: Canvas, bitmap: Bitmap) {
@@ -325,7 +338,8 @@ class PieView : View {
         val targetAngle = (360f / mLuckyItemList!!.size.toFloat()) * step
         animate()
                 .setInterpolator(DecelerateInterpolator())
-                .setDuration(Math.abs(step) * 1000 + 900L)
+//                .setDuration(Math.abs(step) * 1000 + 900L)
+                .setDuration(mAnimationDuration)
                 .setListener(object : Animator.AnimatorListener {
                     override fun onAnimationStart(animation: Animator) {
                         isRunning = true
@@ -360,7 +374,8 @@ class PieView : View {
         val targetAngle = 360 * mRoundOfNumber + 270 - angleOfIndexTarget + 360 / mLuckyItemList!!.size / 2
         animate()
                 .setInterpolator(DecelerateInterpolator())
-                .setDuration(if (animated) mRoundOfNumber * 1000 + 900L else 0)
+//                .setDuration(if (animated) mRoundOfNumber * 1000 + 900L else 0)
+                .setDuration(if (animated) mAnimationDuration else 0)
                 .setListener(object : Animator.AnimatorListener {
                     override fun onAnimationStart(animation: Animator) {
                         isRunning = true

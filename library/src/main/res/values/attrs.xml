@@ -5,16 +5,18 @@
     </declare-styleable>
 
     <declare-styleable name="LuckyWheelView">
-        <attr name="lkwBackgroundColor" format="color" />
-        <attr name="lkwCursor" format="reference" />
-        <attr name="lkwCenterImage" format="reference" />
-        <attr name="lkwTitleColor" format="color" />
-        <attr name="lkwTitleSize" format="float" />
-        <attr name="lkwSubtitleSize" format="float" />
-        <attr name="lkwSubtitleColor" format="color" />
-        <attr name="lkwStrokeColor" format="color" />
-        <attr name="lkwFirstTitleColor" format="color" />
-        <attr name="lkwFirstSubtitleColor" format="color" />
+        <attr name="lkw_backgroundColor" format="color" />
+        <attr name="lkw_cursor" format="reference" />
+        <attr name="lkw_centerImage" format="reference" />
+        <attr name="lkw_titleColor" format="color" />
+        <attr name="lkw_titleSize" format="float" />
+        <attr name="lkw_subtitleSize" format="float" />
+        <attr name="lkw_subtitleColor" format="color" />
+        <attr name="lkw_strokeColor" format="color" />
+        <attr name="lkw_firstTitleColor" format="color" />
+        <attr name="lkw_firstSubtitleColor" format="color" />
+        <attr name="lkw_letterSpacing" format="float" />
+        <attr name="lkw_animationDuration" format="integer" />
     </declare-styleable>
 
 </resources>
