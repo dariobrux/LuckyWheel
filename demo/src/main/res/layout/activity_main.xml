@@ -28,4 +28,26 @@
         app:lkw_titleColor="#8e9ca2"
         app:lkw_titleSize="14" />
 
+    <View
+        android:id="@+id/guideline"
+        android:layout_width="1dp"
+        android:layout_height="1dp"
+        app:layout_constraintBottom_toBottomOf="@id/luckyWheel"
+        app:layout_constraintEnd_toEndOf="@id/luckyWheel"
+        app:layout_constraintStart_toStartOf="@id/luckyWheel"
+        app:layout_constraintTop_toTopOf="@id/luckyWheel" />
+
+    <ImageView
+        android:id="@+id/imgBedtime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:contentDescription="@null"
+        android:src="@drawable/cone_bedtime"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/guideline"
+        app:layout_constraintVertical_bias="0" />
+
 </android.support.constraint.ConstraintLayout>

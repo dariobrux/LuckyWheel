@@ -4,7 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/LuckyWheel.iml" filepath="$PROJECT_DIR$/LuckyWheel.iml" />
       <module fileurl="file://$PROJECT_DIR$/demo/demo.iml" filepath="$PROJECT_DIR$/demo/demo.iml" />
-      <module fileurl="file://$PROJECT_DIR$/library/library.iml" filepath="$PROJECT_DIR$/library/library.iml" />
+      <module fileurl="file://$PROJECT_DIR$/luckywheel/luckywheel.iml" filepath="$PROJECT_DIR$/luckywheel/luckywheel.iml" />
     </modules>
   </component>
 </project>
