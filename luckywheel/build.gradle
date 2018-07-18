@@ -2,7 +2,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 def packageName = 'com.pillohealth'
-def libVersion = "2.0.0"
+def libVersion = "2.0.1"
 
 static def getTimestamp() {
     def currentDate = new Date()
