@@ -9,8 +9,8 @@
         <attr name="lkw_cursor" format="reference" />
         <attr name="lkw_centerImage" format="reference" />
         <attr name="lkw_titleColor" format="color" />
-        <attr name="lkw_titleSize" format="float" />
-        <attr name="lkw_subtitleSize" format="float" />
+        <attr name="lkw_titleSize" format="dimension" />
+        <attr name="lkw_subtitleSize" format="dimension" />
         <attr name="lkw_subtitleColor" format="color" />
         <attr name="lkw_strokeColor" format="color" />
         <attr name="lkw_firstTitleColor" format="color" />

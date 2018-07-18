@@ -13,14 +13,6 @@ import rubikstudio.library.OnItemSelectedListener
 import rubikstudio.library.model.LuckyItem
 import java.util.*
 
-
-
-
-
-
-
-
-
 class MainActivity : AppCompatActivity() {
 
     private var data: ArrayList<LuckyItem> = ArrayList()
@@ -85,29 +77,18 @@ class MainActivity : AppCompatActivity() {
         }
         data.add(item7)
 
-
-//        imgBedtime.isDrawingCacheEnabled = true
-//        var bitmap : Bitmap?
-
         val bitmap = (imgBedtime.drawable as BitmapDrawable).bitmap
 
         val rnd = Random()
         imgBedtime.setOnTouchListener { _, motionEvent ->
-//
             when (motionEvent.action) {
                 MotionEvent.ACTION_DOWN -> {
-//                    val bitmap = (imgBedtime.drawable as BitmapDrawable).bitmap
-//                    bitmap = Bitmap.createBitmap(imgBedtime.drawingCache)
-//                    imgBedtime.isDrawingCacheEnabled = false
-
                     val inverse = Matrix()
                     imgBedtime.imageMatrix.invert(inverse)
                     val touchPoint = floatArrayOf(motionEvent.x, motionEvent.y)
                     inverse.mapPoints(touchPoint)
                     val xCoord = touchPoint[0].toInt()
                     val yCoord = touchPoint[1].toInt()
-
-
                     val pixel = bitmap.getPixel(xCoord, yCoord)
                     val a  = Color.alpha(pixel)
                     if (a == 0)
@@ -115,20 +96,14 @@ class MainActivity : AppCompatActivity() {
                     return@setOnTouchListener true
                 }
                 MotionEvent.ACTION_UP -> {
-
                     val inverse = Matrix()
                     imgBedtime.imageMatrix.invert(inverse)
                     val touchPoint = floatArrayOf(motionEvent.x, motionEvent.y)
                     inverse.mapPoints(touchPoint)
                     val xCoord = touchPoint[0].toInt()
                     val yCoord = touchPoint[1].toInt()
-
-//                    val bitmap = (imgBedtime.drawable as BitmapDrawable).bitmap
                     val pixel = bitmap.getPixel(xCoord, yCoord)
                     val a  = Color.alpha(pixel)
-                    val r = Color.red(pixel)
-                    val g = Color.green(pixel)
-                    val b  = Color.blue(pixel)
                     if (a == 0)
                         return@setOnTouchListener false
                     imgBedtime.setColorFilter(Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256)))

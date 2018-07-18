@@ -32,30 +32,21 @@ class PieView : View {
     private var mTargetIndex: Int = 0
     private var mRoundOfNumber = 4
     private var isRunning = false
-
     private var defaultBackgroundColor = -1
     private var drawableCenterImage: Drawable? = null
     private var strokeColor: Int? = Color.TRANSPARENT
-
     private var firstTitleColor: Int? = null
     private var firstSubtitleColor: Int? = null
-
     private var mLetterSpacing: Float = 1f
-
     private var mAnimationDuration: Long = 1000
-
     private var titleColor = -0x1
     private var subtitleColor = -0x1
-
     private var titleSize = 14f
     private var subtitleSize = 14f
 
     private var mLuckyItemList: List<LuckyItem>? = null
-
-    private var onItemRotationListener: OnItemRotationListener? = null
-
     private var mPathList: ArrayList<Path> = ArrayList()
-
+    private var onItemRotationListener: OnItemRotationListener? = null
     private var mOnItemSelectedListener: OnItemSelectedListener? = null
 
     /**
@@ -221,6 +212,10 @@ class PieView : View {
                 }
             }
 
+//            BitmapFactory.decodeResource(resources, mLuckyItemList!![i].indicator)?.let {
+//                drawIndicator(canvas, tmpAngle, sweepAngle, it)
+//            }
+
             drawTitle(canvas, tmpAngle, sweepAngle, mLuckyItemList!![i].title)
             drawSubtitle(canvas, tmpAngle, sweepAngle, mLuckyItemList!![i].subtitle)
 
@@ -236,29 +231,76 @@ class PieView : View {
         }
     }
 
+//    private fun drawIndicator(canvas: Canvas, tmpAngle: Float, sweepAngle: Float, indicator: Bitmap) {
+////        val path = Path()
+////        path.addArc(mRange, tmpAngle, sweepAngle)
+////
+////        val hOffset = (mRadius * Math.PI / mLuckyItemList!!.size.toDouble() / 2.0 ).toFloat()
+////        val vOffset = mRadius.toFloat()
+////
+////        val imgWidth = 32
+////
+////
+////        val x = (mCenter + mRadius / 2 / 2 * Math.cos(angle.toDouble())).toInt()
+////        val y = mCenter + mRadius / 2
+////
+////        val rect = Rect(x - imgWidth / 2, y - imgWidth / 2, x + imgWidth / 2, y + imgWidth / 2)
+////        canvas.drawBitmap(indicator, null, rect, null)
+//
+//        val imgWidth = indicator.width
+//        val imgHeight = indicator.height
+//        val angle = ((tmpAngle + 360 / mLuckyItemList!!.size / 2) * Math.PI / 180).toFloat()
+//        val x = mCenter + mRadius / 2f  * Math.cos(angle.toDouble()).toFloat()
+//        val y = mCenter + mRadius / 2f  * Math.sin(angle.toDouble()).toFloat()
+//        val rect = RectF(x - imgWidth / 2f, y - imgWidth / 2f, x + imgWidth / 2f, y + imgHeight / 2f)
+//
+//
+//
+//        val matrix = Matrix()
+//        matrix.postTranslate(rect.centerX(), rect.centerY())
+//        matrix.postTranslate(-rect.width() / 2.toFloat(), -rect.height() / 2)
+////        matrix.postTranslate(-rect.width() / 2f, (-rect.height()).toFloat())
+////        matrix.postTranslate(rect.centerX().toFloat(), rect.centerY().toFloat())
+//        matrix.postRotate((tmpAngle + 360f / mLuckyItemList!!.size / 2f) - 90, rect.centerX(), rect.centerY())
+//
+//// to set the position in canvas where the bitmap should be drawn to;
+//// NOTE: coords in canvas-space!
+//
+//        val yellowPaint = Paint()
+//        yellowPaint.color = Color.WHITE
+//        yellowPaint.style = Paint.Style.FILL_AND_STROKE
+//        yellowPaint.strokeWidth = 10f
+//        canvas.drawRect(rect, yellowPaint)
+////        canvas.drawPoint(rect.left.toFloat(), rect.top.toFloat(), paint)
+//
+//        canvas.drawBitmap(indicator, matrix, null)
+//
+//
+////        canvas.drawBitmap(indicator, null, rect, null)
+//
+//
+//
+//        val cyanPaint = Paint()
+//        cyanPaint.color = Color.CYAN
+//        cyanPaint.style = Paint.Style.FILL_AND_STROKE
+//        cyanPaint.strokeWidth = 30f
+//        canvas.drawPoint(rect.centerX(), rect.centerY(), cyanPaint)
+//
+//
+//
+////        val paint = Paint()
+////        paint.color = Color.GREEN
+////        paint.style = Paint.Style.FILL_AND_STROKE
+////        paint.strokeWidth = 10f
+////        canvas.drawArc(Math.cos(angle.toDouble()).toFloat()/ 2, Math.sin(angle.toDouble()).toFloat()/2, indicator.width.toFloat(), indicator.height.toFloat(), tmpAngle, sweepAngle, false, paint)
+//    }
+
     private fun drawBackgroundColor(canvas: Canvas, color: Int) {
         if (color == -1)
             return
         mBackgroundPaint = Paint()
         mBackgroundPaint!!.color = color
         canvas.drawCircle(mCenter.toFloat(), mCenter.toFloat(), mCenter.toFloat(), mBackgroundPaint!!)
-    }
-
-    /**
-     * @param widthMeasureSpec
-     * @param heightMeasureSpec
-     */
-    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
-
-        val width = Math.min(measuredWidth, measuredHeight)
-
-        mPadding = if (paddingLeft == 0) 10 else paddingLeft
-        mRadius = width - mPadding * 2
-
-        mCenter = width / 2
-
-        setMeasuredDimension(width, width)
     }
 
     /**
@@ -322,11 +364,28 @@ class PieView : View {
     }
 
     /**
-     * @param numberOfRound
+     * @param widthMeasureSpec
+     * @param heightMeasureSpec
      */
-    fun setRound(numberOfRound: Int) {
-        mRoundOfNumber = numberOfRound
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
+
+        val width = Math.min(measuredWidth, measuredHeight)
+
+        mPadding = if (paddingLeft == 0) 10 else paddingLeft
+        mRadius = width - mPadding * 2
+
+        mCenter = width / 2
+
+        setMeasuredDimension(width, width)
     }
+
+//    /**
+//     * @param numberOfRound
+//     */
+//    fun setRound(numberOfRound: Int) {
+//        mRoundOfNumber = numberOfRound
+//    }
 
     fun rotateByStep(step: Int) {
         if (isRunning) {
