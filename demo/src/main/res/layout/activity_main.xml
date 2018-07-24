@@ -24,9 +24,9 @@
         app:lkw_letterSpacing="0.24"
         app:lkw_strokeColor="@color/silver"
         app:lkw_subtitleColor="#5588e7"
-        app:lkw_subtitleSize="8sp"
+        app:lkw_subtitleSize="6sp"
         app:lkw_titleColor="#8e9ca2"
-        app:lkw_titleSize="8sp" />
+        app:lkw_titleSize="6sp" />
 
     <View
         android:id="@+id/guideline"

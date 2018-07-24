@@ -20,8 +20,8 @@ class LuckyWheelView : RelativeLayout {
 
     private var mBackgroundColor: Int = 0
     private var mTitleColor: Int = 0
-    private var mTitleSize: Float = 14f
-    private var mSubtitleSize: Float = 14f
+    private var mTitleSize: Int = 14
+    private var mSubtitleSize: Int = 14
     private var mSubtitleColor: Int = 0
     private var mCenterImage: Drawable? = null
     private var mCursorImage: Drawable? = null
@@ -61,8 +61,8 @@ class LuckyWheelView : RelativeLayout {
             val typedArray = ctx.obtainStyledAttributes(attrs, R.styleable.LuckyWheelView)
             mBackgroundColor = typedArray.getColor(R.styleable.LuckyWheelView_lkw_backgroundColor, -0x340000)
             mTitleColor = typedArray.getColor(R.styleable.LuckyWheelView_lkw_titleColor, -0x1)
-            mTitleSize = typedArray.getDimension(R.styleable.LuckyWheelView_lkw_titleSize, mTitleSize)
-            mSubtitleSize = typedArray.getDimension(R.styleable.LuckyWheelView_lkw_subtitleSize, mSubtitleSize)
+            mTitleSize = typedArray.getDimensionPixelOffset(R.styleable.LuckyWheelView_lkw_titleSize, mTitleSize)
+            mSubtitleSize = typedArray.getDimensionPixelOffset(R.styleable.LuckyWheelView_lkw_subtitleSize, mSubtitleSize)
             mSubtitleColor = typedArray.getColor(R.styleable.LuckyWheelView_lkw_subtitleColor, -0x1)
             mCursorImage = typedArray.getDrawable(R.styleable.LuckyWheelView_lkw_cursor)
             mCenterImage = typedArray.getDrawable(R.styleable.LuckyWheelView_lkw_centerImage)

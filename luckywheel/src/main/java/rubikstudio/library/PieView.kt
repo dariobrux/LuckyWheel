@@ -41,8 +41,8 @@ class PieView : View {
     private var mAnimationDuration: Long = 1000
     private var titleColor = -0x1
     private var subtitleColor = -0x1
-    private var titleSize = 14f
-    private var subtitleSize = 14f
+    private var titleSize = 14
+    private var subtitleSize = 14
 
     private var mLuckyItemList: List<LuckyItem>? = null
     private var mPathList: ArrayList<Path> = ArrayList()
@@ -83,7 +83,7 @@ class PieView : View {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 letterSpacing = mLetterSpacing
             }
-            textSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, titleSize, resources.displayMetrics)
+            textSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, titleSize.toFloat(), resources.displayMetrics)
         }
 
         mSubtitlePaint = Paint().apply {
@@ -92,7 +92,7 @@ class PieView : View {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 letterSpacing = mLetterSpacing
             }
-            textSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, subtitleSize, resources.displayMetrics)
+            textSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, subtitleSize.toFloat(), resources.displayMetrics)
         }
 
         mRange = RectF(mPadding.toFloat(), mPadding.toFloat(), (mPadding + mRadius).toFloat(), (mPadding + mRadius).toFloat())
@@ -127,12 +127,12 @@ class PieView : View {
         invalidate()
     }
 
-    fun setPieTitleSize(size: Float) {
+    fun setPieTitleSize(size: Int) {
         titleSize = size
         invalidate()
     }
 
-    fun setPieSubtitleSize(size: Float) {
+    fun setPieSubtitleSize(size: Int) {
         subtitleSize = size
         invalidate()
     }
@@ -216,8 +216,8 @@ class PieView : View {
 //                drawIndicator(canvas, tmpAngle, sweepAngle, it)
 //            }
 
-            drawTitle(canvas, tmpAngle, sweepAngle, mLuckyItemList!![i].title)
-            drawSubtitle(canvas, tmpAngle, sweepAngle, mLuckyItemList!![i].subtitle)
+            drawTitle(canvas, tmpAngle, sweepAngle, mLuckyItemList!![i].title!!)
+            drawSubtitle(canvas, tmpAngle, sweepAngle, mLuckyItemList!![i].subtitle!!)
 
             BitmapFactory.decodeResource(resources, mLuckyItemList!![i].icon)?.let {
                 drawImage(canvas, tmpAngle, it)
